@@ -641,13 +641,8 @@
       transition: background 0.35s ease, color 0.35s ease;
     }
     .prog-divider { width: 1px; background: #1a1a1a; flex-shrink: 0; }
-    .prog-pct {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: bold; color: white;
-      pointer-events: none;
-    }
-    .prog-seg.seg-wait   { background: #2A2A2A; color: #666666; }
+    .prog-pct { display: none; }
+    .prog-seg.seg-wait   { background: #707070; color: #FFFFFF; }
     .prog-seg.seg-active { background: #1e5fa8; color: #ffffff; animation: segPulse 1.5s ease infinite; }
     .prog-seg.seg-done   { background: #1a5c2e; color: #ffffff; }
     .prog-seg.seg-error  { background: #5c1a1a; color: #ffffff; }
@@ -950,11 +945,11 @@
               <!-- MUDANÇA 3: Barra de progresso 3 segmentos -->
               <div class="progress-3-wrap">
                 <div class="progress-3-bar">
-                  <div class="prog-seg seg-wait" id="psExtract">Extração</div>
+                  <div class="prog-seg seg-wait" id="psExtract">EXTRAÇÃO</div>
                   <div class="prog-divider"></div>
-                  <div class="prog-seg seg-wait" id="psTranslate">Tradução</div>
+                  <div class="prog-seg seg-wait" id="psTranslate">TRADUÇÃO</div>
                   <div class="prog-divider"></div>
-                  <div class="prog-seg seg-wait" id="psReinsert">Reinserção</div>
+                  <div class="prog-seg seg-wait" id="psReinsert">REINSERÇÃO</div>
                   <div class="prog-pct" id="progPct">0%</div>
                 </div>
                 <div class="prog-status-text" id="progStatusText">Aguardando...</div>
@@ -1526,13 +1521,13 @@
       _setSeg('psExtract',   'wait');
       _setSeg('psTranslate', 'wait');
       _setSeg('psReinsert',  'wait');
-      document.getElementById('progPct').textContent = '0%';
+      document.getElementById('psExtract').textContent = 'EXTRAÇÃO'; document.getElementById('psTranslate').textContent = 'TRADUÇÃO'; document.getElementById('psReinsert').textContent = 'REINSERÇÃO';
       document.getElementById('progStatusText').textContent = 'Iniciando...';
 
       /* --- Fase 1: Extração --- */
       setTimeout(function() {
         _setSeg('psExtract', 'active');
-        document.getElementById('progPct').textContent = '0%';
+        document.getElementById('psExtract').textContent = 'EXTRAÇÃO'; document.getElementById('psTranslate').textContent = 'TRADUÇÃO'; document.getElementById('psReinsert').textContent = 'REINSERÇÃO';
         document.getElementById('progStatusText').textContent = 'Extraindo textos da ROM...';
         _addDemoLog('ok',   '[OK] ROM carregada — ' + plat);
         _addDemoLog('info', '[CFG] Modo extração: padrão');
@@ -1544,7 +1539,7 @@
       setTimeout(function() {
         _setSeg('psExtract',   'done');
         _setSeg('psTranslate', 'active');
-        document.getElementById('progPct').textContent = '33%';
+        document.getElementById('psTranslate').textContent = 'TRADUÇÃO 33%';
         document.getElementById('progStatusText').textContent = 'Traduzindo com Gemini...';
         _addDemoLog('info', '[LANG] Idioma origem: japonês');
         _addDemoLog('ok',   '[OK] Traduzindo com Gemini Pro...');
@@ -1563,7 +1558,7 @@
       setTimeout(function() {
         _setSeg('psTranslate', 'done');
         _setSeg('psReinsert',  'active');
-        document.getElementById('progPct').textContent = '67%';
+        document.getElementById('psReinsert').textContent = 'REINSERÇÃO 67%';
         document.getElementById('progStatusText').textContent = 'Reinserindo na ROM...';
         _addDemoLog('ok',   '[OK] Reinserindo 1.432 strings...');
         _addDemoLog('info', '[CFG] Checksum recalculado');
@@ -1573,7 +1568,7 @@
       /* --- Concluído --- */
       setTimeout(function() {
         _setSeg('psReinsert', 'done');
-        document.getElementById('progPct').textContent = '100%';
+        document.getElementById('psReinsert').textContent = 'REINSERÇÃO 100%';
         document.getElementById('progStatusText').textContent = '✓ Tradução concluída!';
         _addDemoLog('ok', '[OK] Pipeline concluído com sucesso!');
         btn.disabled = false;
