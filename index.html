@@ -1014,6 +1014,26 @@
           <p style="margin-top:12px; font-size:0.82rem; color:var(--text-muted);">Instant download · Lifetime license · One-time purchase</p>
         </div>
 
+        <div class="reveal reveal-delay-1">
+          <div class="video-frame">
+            <div class="video-chrome">
+              <span class="chrome-dot"></span>
+              <span class="chrome-dot"></span>
+              <span class="chrome-dot"></span>
+              <div class="chrome-bar">
+                <span>Offline OCR Translator — Demo</span>
+              </div>
+            </div>
+            <div class="video-container" id="heroVideoContainer">
+              <div class="video-placeholder" id="heroVideoPlaceholder" onclick="loadHeroVideo()">
+                <div class="play-btn">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+                <p>Click to watch the demo</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
       </div>
@@ -1355,6 +1375,19 @@
 
   <!-- JAVASCRIPT -->
   <script>
+    const YOUTUBE_VIDEO_ID = "PupmvcHGZXA";
+
+    function loadHeroVideo() {
+      const container   = document.getElementById("heroVideoContainer");
+      const placeholder = document.getElementById("heroVideoPlaceholder");
+      placeholder.style.display = "none";
+      const iframe = document.createElement("iframe");
+      iframe.src = "https://www.youtube.com/embed/" + YOUTUBE_VIDEO_ID + "?autoplay=1&rel=0";
+      iframe.allow = "autoplay; encrypted-media";
+      iframe.allowFullscreen = true;
+      iframe.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;border:none;";
+      container.appendChild(iframe);
+    }
 
 
     function toggleFaq(btn) {
