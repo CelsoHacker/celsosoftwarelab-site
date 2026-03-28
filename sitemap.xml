@@ -6,10 +6,3 @@
     <priority>1.0</priority>
   </url>
 </urlset>
-```
-
-**Upload no GitHub** igual você fez com o arquivo de verificação — coloca na raiz do projeto e faz commit.
-
-Depois confirma que tá acessível abrindo:
-```
-https://celsohacker.github.io/celsosoftwarelab-site/sitemap.xml
