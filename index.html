@@ -449,6 +449,19 @@
     @media (max-width: 768px) { .about-inner { grid-template-columns: 1fr; } }
     .about-text .section-label { margin-bottom: 14px; }
     .about-text h2 { margin-bottom: 16px; }
+    .about-text p + p { margin-top: 14px; }
+    .about-proof-list {
+      list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 24px;
+    }
+    .about-proof-list li {
+      display: flex; align-items: flex-start; gap: 10px; font-size: 0.94rem; color: var(--text-secondary);
+    }
+    .about-proof-list li::before {
+      content: ''; width: 18px; height: 18px; border-radius: 50%; margin-top: 2px; flex-shrink: 0;
+      background: rgba(99,179,237,0.14); border: 1px solid rgba(99,179,237,0.32);
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4L3.5 6.5L9 1' stroke='%2363b3ed' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: center;
+    }
     .about-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
     .badge {
       display: inline-flex; align-items: center; gap: 7px; padding: 9px 18px; border-radius: 100px;
@@ -568,6 +581,12 @@
        FAQ
     ========================================= */
     .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+    .faq-intro {
+      max-width: 720px; margin: 0 auto 22px; padding: 16px 18px;
+      background: rgba(20, 23, 32, 0.92); border: 1px solid var(--border); border-radius: 16px;
+      font-size: 0.92rem; color: var(--text-secondary);
+    }
+    .faq-intro strong { color: var(--text-primary); }
     .faq-item {
       background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
       overflow: hidden; transition: border-color var(--transition);
@@ -586,7 +605,7 @@
     }
     .faq-item.open .faq-chevron { transform: rotate(180deg); }
     .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.32s ease, padding 0.2s ease; padding: 0 24px; }
-    .faq-item.open .faq-answer { max-height: 200px; padding: 0 24px 20px; }
+    .faq-item.open .faq-answer { max-height: 320px; padding: 0 24px 20px; }
     .faq-answer p { font-size: 0.93rem; line-height: 1.7; }
 
     /* =========================================
@@ -1280,16 +1299,22 @@
       <div class="about-inner">
         <div class="about-text reveal">
           <span class="section-label">About</span>
-          <h2>Building tools I wished existed</h2>
+          <h2>Independent software built around real workflows</h2>
           <p>
-            Celso Software Lab is an independent software studio focused on building practical tools
-            for real problems. Each project was born from a personal need —
-            tools that either didn't exist or cost too much for what they do.
+            Celso Software Lab is a solo software studio focused on practical Windows tools
+            for OCR, translation, ROM workflows and graphics recreation.
+            Every product starts from a real use case, not from a generic template.
           </p>
-          <p style="margin-top:14px;">
-            Every tool is built for Windows, works offline whenever possible,
-            and follows a simple principle: pay once, own it forever.
+          <p>
+            The goal is straightforward: ship focused tools that install fast,
+            solve a specific problem well and avoid unnecessary subscription friction.
+            If a workflow can stay local, it stays local.
           </p>
+          <ul class="about-proof-list">
+            <li>Solo-built products with a clear scope instead of overloaded all-in-one software.</li>
+            <li>Windows-first release strategy, with the current live product ready to buy and use now.</li>
+            <li>One-time purchase model for released tools, with checkout and delivery handled directly through Gumroad.</li>
+          </ul>
           <div class="about-badges">
             <!-- EDIT: Add or remove focus area badges freely -->
             <span class="badge"><span class="badge-icon">🔒</span> Offline First</span>
@@ -1454,54 +1479,74 @@
         <span class="section-label">FAQ</span>
         <h2>Frequently asked questions</h2>
       </div>
+      <div class="faq-intro reveal">
+        <strong>Short version:</strong> the current store focus is the OCR Translator for Windows.
+        It is sold as a one-time purchase, delivered instantly, and designed for scanned-document workflows.
+      </div>
       <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Who builds the tools?
+            <span class="faq-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button>
+          <div class="faq-answer"><p>Celso Software Lab is a solo development studio. The products are designed, built and maintained independently, with a focus on practical Windows workflows instead of broad generic platforms.</p></div>
+        </div>
 
         <div class="faq-item">
           <button class="faq-question" onclick="toggleFaq(this)">
             Do the tools work on Windows?
             <span class="faq-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           </button>
-          <div class="faq-answer"><p>Yes. All tools from Celso Software Lab are built for Windows 10 and Windows 11. macOS and Linux are not supported at this time.</p></div>
+          <div class="faq-answer"><p>Yes. Released tools are built for Windows 10 and Windows 11. macOS and Linux are not supported at this time, and the whole product positioning of the site is Windows-first.</p></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question" onclick="toggleFaq(this)">
-            Do the tools work offline?
+            Does the OCR Translator work offline?
             <span class="faq-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           </button>
-          <div class="faq-answer"><p>Yes. Offline operation is a core design principle. The OCR Translator runs text recognition locally with no internet connection. Other tools follow the same approach.</p></div>
+          <div class="faq-answer"><p>Yes. OCR runs locally on your PC. For the standard offline workflow, your files stay on your machine and no mandatory internet connection is required to perform text recognition.</p></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question" onclick="toggleFaq(this)">
-            Where can I buy the tools?
+            How do I know if the OCR Translator fits my workflow?
             <span class="faq-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           </button>
-          <div class="faq-answer"><p>All available tools are sold on Gumroad at celsoexpert.gumroad.com. Checkout is secure and you receive an instant download link after purchase.</p></div>
+          <div class="faq-answer"><p>If your work starts from scanned PDFs, manuals, strategy guides or image-based documents that need OCR before translation, this is the right product to evaluate first. The product page, demo section and supported file list on this site are meant to make that fit clear before purchase.</p></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question" onclick="toggleFaq(this)">
-            How do I follow new releases?
+            Where can I buy the released tools?
             <span class="faq-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           </button>
-          <div class="faq-answer"><p>Follow the YouTube channel for demos and updates, or follow the Gumroad store to get notified of new releases. Links are in the footer below.</p></div>
+          <div class="faq-answer"><p>All available tools are sold on Gumroad at celsoexpert.gumroad.com. Checkout is secure and the download is delivered right after purchase.</p></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question" onclick="toggleFaq(this)">
-            Will there be new software launches?
-            <span class="faq-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </button>
-          <div class="faq-answer"><p>Yes. ROM Translator and Graphics Recreator (2D &amp; 3D) are both in active development or research. Check the Roadmap section above for current status.</p></div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            Is there a subscription?
+            Is there a subscription or recurring billing?
             <span class="faq-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           </button>
           <div class="faq-answer"><p>No. Every tool is sold with a one-time payment for a lifetime license. No monthly fees, no annual renewals, no account required to run the software.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Will there be more software launches later?
+            <span class="faq-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button>
+          <div class="faq-answer"><p>Yes. ROM Translator and Graphics Recreator (2D &amp; 3D) are already visible on the roadmap as the next major products in development or research.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            How do I follow updates and new releases?
+            <span class="faq-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button>
+          <div class="faq-answer"><p>Follow the YouTube channel for demos and product updates, or follow the Gumroad store for release notifications. Both links are listed in the footer.</p></div>
         </div>
 
       </div>
