@@ -798,6 +798,74 @@
        APP DEMO SECTION
     ========================================= */
     .app-demo { background: var(--bg-base); padding: 80px 0; }
+    .demo-proof-row {
+      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+      margin: 24px auto 0; max-width: 920px;
+    }
+    .demo-proof-chip {
+      padding: 10px 14px; border-radius: 999px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(99,179,237,0.16);
+      color: var(--text-secondary); font-size: 0.84rem; font-weight: 600;
+    }
+    .demo-preset-row {
+      max-width: 960px; margin: 32px auto 16px;
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;
+    }
+    .demo-preset {
+      padding: 18px 18px 16px; border-radius: 20px; text-align: left;
+      background: linear-gradient(180deg, rgba(19,24,36,0.96), rgba(13,17,26,0.96));
+      border: 1px solid rgba(99,179,237,0.14); color: var(--text-primary);
+      appearance: none; width: 100%; font: inherit;
+      cursor: pointer; transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition), background var(--transition);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.22);
+    }
+    .demo-preset:hover {
+      transform: translateY(-2px); border-color: rgba(99,179,237,0.34);
+      box-shadow: 0 18px 36px rgba(0,0,0,0.28);
+    }
+    .demo-preset.active {
+      background: linear-gradient(180deg, rgba(99,179,237,0.16), rgba(124,111,247,0.14));
+      border-color: rgba(99,179,237,0.5);
+      box-shadow: 0 20px 40px rgba(99,179,237,0.12);
+    }
+    .demo-preset strong {
+      display: block; margin-bottom: 6px; font-size: 1rem; color: var(--text-primary);
+    }
+    .demo-preset span {
+      display: block; font-size: 0.88rem; line-height: 1.6; color: var(--text-muted);
+    }
+    .demo-helper-bar {
+      max-width: 960px; margin: 0 auto 18px; padding: 18px 20px;
+      border-radius: 22px; border: 1px solid rgba(99,179,237,0.18);
+      background: linear-gradient(180deg, rgba(18,24,36,0.9), rgba(12,16,24,0.94));
+      display: flex; align-items: center; justify-content: space-between; gap: 18px;
+      box-shadow: 0 18px 42px rgba(0,0,0,0.2);
+    }
+    .demo-helper-copy { display: flex; flex-direction: column; gap: 5px; }
+    .demo-helper-kicker {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .demo-helper-title {
+      font-size: 1.05rem; line-height: 1.2; color: var(--text-primary);
+    }
+    .demo-helper-text {
+      margin: 0; font-size: 0.9rem; line-height: 1.65; color: var(--text-secondary);
+      max-width: 600px;
+    }
+    .demo-helper-pills {
+      display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end;
+    }
+    .demo-helper-pill {
+      padding: 9px 12px; border-radius: 999px;
+      border: 1px solid rgba(99,179,237,0.18); background: rgba(255,255,255,0.03);
+      color: var(--text-secondary); font-size: 0.8rem; font-weight: 600; white-space: nowrap;
+    }
+    @media (max-width: 900px) {
+      .demo-preset-row { grid-template-columns: 1fr; }
+      .demo-helper-bar { flex-direction: column; align-items: flex-start; }
+      .demo-helper-pills { justify-content: flex-start; }
+    }
 
     .app-window {
       max-width: 960px; margin: 0 auto; border-radius: var(--radius-lg);
@@ -1155,12 +1223,46 @@
   <section class="app-demo" id="rom-translator-demo">
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-label" style="background:rgba(246,173,85,0.1);border-color:rgba(246,173,85,0.28);color:#f6ad55;">🎮 Demo Interativo</span>
-        <h2>Experimente o ROM Translator</h2>
-        <p>Simule a interface real do software. Alterne entre perfis e veja como cada modo funciona.</p>
+        <span class="section-label" style="background:rgba(246,173,85,0.1);border-color:rgba(246,173,85,0.28);color:#f6ad55;">🎮 Interactive App Demo</span>
+        <h2>See the ROM Translator workflow before you buy</h2>
+        <p>Switch between guided scenarios, compare basic and developer views, and watch the full extraction-to-reinsertion pipeline.</p>
       </div>
 
-      <div class="reveal">
+      <div class="demo-proof-row reveal reveal-delay-1">
+        <span class="demo-proof-chip">3 guided scenarios</span>
+        <span class="demo-proof-chip">Basic + developer views</span>
+        <span class="demo-proof-chip">Extraction to reinsertion</span>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="demo-preset-row" role="tablist" aria-label="Demo presets">
+          <button class="demo-preset active" type="button" id="presetArcade" data-preset="arcade" onclick="setDemoPreset('arcade')">
+            <strong>Arcade UI</strong>
+            <span>Short action-game strings, fast extraction and a quick menu-focused export pass.</span>
+          </button>
+          <button class="demo-preset" type="button" id="presetDialogue" data-preset="dialogue" onclick="setDemoPreset('dialogue')">
+            <strong>Story Dialogue</strong>
+            <span>Longer RPG text, glossary-friendly translation and a more contextual batch flow.</span>
+          </button>
+          <button class="demo-preset" type="button" id="presetAudit" data-preset="audit" onclick="setDemoPreset('audit')">
+            <strong>Developer Audit</strong>
+            <span>Strict extraction, technical logs and QA-style output with the dev profile enabled.</span>
+          </button>
+        </div>
+
+        <div class="demo-helper-bar">
+          <div class="demo-helper-copy">
+            <span class="demo-helper-kicker" id="demoScenarioBadge">Arcade UI preset</span>
+            <strong class="demo-helper-title" id="demoScenarioTitle">Quick menu translation preview</strong>
+            <p class="demo-helper-text" id="demoScenarioText">Simulates a fast NES-style UI batch with short strings and quick reinsertion.</p>
+          </div>
+          <div class="demo-helper-pills">
+            <span class="demo-helper-pill" id="demoStatusProfile">Basic profile</span>
+            <span class="demo-helper-pill" id="demoStatusPlatform">NES build</span>
+            <span class="demo-helper-pill" id="demoStatusMode">Menu mapper + UI scan</span>
+          </div>
+        </div>
+
         <div class="app-window" id="demoWindow">
 
           <!-- Barra de título -->
@@ -1243,11 +1345,11 @@
               <div class="diagnostic-panel" id="diagnosticPanel">
                 <div class="diag-title">Diagnóstico da ROM</div>
                 <div class="diag-grid">
-                  <div class="diag-item"><span class="diag-label">Bytes Únicos</span><span class="diag-value">247</span></div>
-                  <div class="diag-item"><span class="diag-label">Strings</span><span class="diag-value">1.432</span></div>
-                  <div class="diag-item"><span class="diag-label">Comp. Médio</span><span class="diag-value">8,3</span></div>
-                  <div class="diag-item"><span class="diag-label">Confiança TBL</span><span class="diag-value">94%</span></div>
-                  <div class="diag-item"><span class="diag-label">Regiões ZIP</span><span class="diag-value">12</span></div>
+                  <div class="diag-item"><span class="diag-label">Bytes Únicos</span><span class="diag-value" id="diagBytes">247</span></div>
+                  <div class="diag-item"><span class="diag-label">Strings</span><span class="diag-value" id="diagStrings">1.432</span></div>
+                  <div class="diag-item"><span class="diag-label">Comp. Médio</span><span class="diag-value" id="diagAvg">8,3</span></div>
+                  <div class="diag-item"><span class="diag-label">Confiança TBL</span><span class="diag-value" id="diagTbl">94%</span></div>
+                  <div class="diag-item"><span class="diag-label">Regiões ZIP</span><span class="diag-value" id="diagZip">12</span></div>
                 </div>
                 <div class="freq-bars">
                   <div class="freq-bar-title">Byte + Freq</div>
@@ -1797,9 +1899,130 @@
     ========================================= */
     let _demoProfile  = 'basic';
     let _demoRunning  = false;
+    let _demoPreset   = 'arcade';
+
+    const DEMO_PLATFORMS = {
+      nes:  { short: 'NES',               full: 'Nintendo (NES)',            ext: 'nes'  },
+      snes: { short: 'SNES',              full: 'Super Nintendo (SNES)',     ext: 'sfc'  },
+      sms:  { short: 'Sega Master System',full: 'Sega Master System',        ext: 'sms'  },
+      gb:   { short: 'Game Boy',          full: 'Game Boy',                  ext: 'gb'   },
+      gba:  { short: 'Game Boy Advance',  full: 'Game Boy Advance',          ext: 'gba'  }
+    };
+
+    const DEMO_PRESETS = {
+      arcade: {
+        badge: 'Arcade UI preset',
+        title: 'Quick menu translation preview',
+        description: 'Simulates a fast NES-style UI batch with short strings and quick reinsertion.',
+        platform: 'nes',
+        profile: 'basic',
+        found: '824',
+        sourceLang: 'english',
+        mode: 'Menu mapper + UI scan',
+        translator: 'Gemini Pro',
+        engine: 'Gemini',
+        model: 'gemini-1.5-pro',
+        outputBase: 'arcade_patch_traduzida',
+        original: 'PRESS START',
+        translation: 'PRESSIONE START',
+        secondaryOriginal: 'GAME OVER',
+        secondaryTranslation: 'FIM DE JOGO',
+        diag: { bytes: '247', strings: '824', avg: '6,2', tbl: '96%', zip: '5' }
+      },
+      dialogue: {
+        badge: 'Story dialogue preset',
+        title: 'Dialogue-heavy RPG batch preview',
+        description: 'Shows a larger story build with glossary-friendly lines and more contextual translation.',
+        platform: 'snes',
+        profile: 'basic',
+        found: '2.431',
+        sourceLang: 'english',
+        mode: 'Context batch + glossary lock',
+        translator: 'DeepL Pro',
+        engine: 'DeepL',
+        model: 'deepl-api',
+        outputBase: 'story_build_traduzida',
+        original: 'The gate is sealed.',
+        translation: 'O portão está selado.',
+        secondaryOriginal: 'You need the moon key.',
+        secondaryTranslation: 'Você precisa da chave da lua.',
+        diag: { bytes: '311', strings: '2.431', avg: '22,4', tbl: '98%', zip: '18' }
+      },
+      audit: {
+        badge: 'Developer audit preset',
+        title: 'Strict extraction and QA preview',
+        description: 'Enables the developer profile with technical logs, stricter checks and QA-oriented output.',
+        platform: 'gba',
+        profile: 'dev',
+        found: '1.632',
+        sourceLang: 'english',
+        mode: 'Strict extraction + deterministic QA',
+        translator: 'Gemini Pro',
+        engine: 'Gemini',
+        model: 'gemini-1.5-pro',
+        outputBase: 'audit_build_debug',
+        original: 'A hidden switch clicked.',
+        translation: 'Um interruptor oculto foi acionado.',
+        secondaryOriginal: 'Memory card data loaded.',
+        secondaryTranslation: 'Dados do cartão de memória carregados.',
+        diag: { bytes: '402', strings: '1.632', avg: '14,1', tbl: '99%', zip: '9' }
+      }
+    };
+
+    function _getSelectedPlatformInfo() {
+      const value = document.getElementById('demoPlatform').value;
+      return DEMO_PLATFORMS[value] || { short: value.toUpperCase(), full: value, ext: value };
+    }
+
+    function _setDemoRealtime(config, waiting) {
+      document.getElementById('rtOriginal').textContent    = config.original;
+      document.getElementById('rtTranslation').textContent = waiting ? 'Aguardando execução...' : config.translation;
+      document.getElementById('rtTranslator').textContent  = waiting ? 'Pronto para simular' : config.translator;
+      document.getElementById('rtEngine').textContent      = config.engine;
+      document.getElementById('rtModel').textContent       = config.model;
+    }
+
+    function _setDemoDiagnostics(config) {
+      document.getElementById('diagBytes').textContent   = config.diag.bytes;
+      document.getElementById('diagStrings').textContent = config.diag.strings;
+      document.getElementById('diagAvg').textContent     = config.diag.avg;
+      document.getElementById('diagTbl').textContent     = config.diag.tbl;
+      document.getElementById('diagZip').textContent     = config.diag.zip;
+    }
+
+    function _resetDemoProgress(statusText) {
+      _setSeg('psExtract',   'wait');
+      _setSeg('psTranslate', 'wait');
+      _setSeg('psReinsert',  'wait');
+      document.getElementById('psExtract').textContent   = 'EXTRAÇÃO';
+      document.getElementById('psTranslate').textContent = 'TRADUÇÃO';
+      document.getElementById('psReinsert').textContent  = 'REINSERÇÃO';
+      document.getElementById('progStatusText').textContent = statusText;
+    }
+
+    function _updateDemoSummary() {
+      const config = DEMO_PRESETS[_demoPreset];
+      const platformInfo = _getSelectedPlatformInfo();
+      const isBasic = (_demoProfile === 'basic');
+      document.getElementById('demoScenarioBadge').textContent = config.badge;
+      document.getElementById('demoScenarioTitle').textContent = config.title;
+      document.getElementById('demoScenarioText').textContent  = config.description;
+      document.getElementById('demoStatusProfile').textContent = isBasic ? 'Basic profile' : 'Developer profile';
+      document.getElementById('demoStatusPlatform').textContent = platformInfo.short + ' build';
+      document.getElementById('demoStatusMode').textContent = config.mode;
+    }
+
+    function _setInitialDemoLog(message) {
+      const log = document.getElementById('demoLog');
+      log.innerHTML = '';
+      const line = document.createElement('span');
+      line.className = 'log-line log-info';
+      line.textContent = message;
+      log.appendChild(line);
+    }
 
     /* Aplica o perfil sem confirmação */
-    function applyDemoProfile(profile) {
+    function applyDemoProfile(profile, silent) {
       _demoProfile = profile;
       const isBasic = (profile === 'basic');
 
@@ -1812,13 +2035,34 @@
       document.getElementById('devButtons').style.display      = isBasic ? 'none' : 'flex';
 
       document.getElementById('demoProfile').value = profile;
+      _updateDemoSummary();
 
       /* Adiciona linha no log sobre a troca */
-      if (isBasic) {
-        _addDemoLog('ok', '✓ Perfil alterado: Usuário Básico');
-      } else {
-        _addDemoLog('ok', '[OK] Perfil alterado: modo Desenvolvedor ativo');
+      if (!silent) {
+        if (isBasic) {
+          _addDemoLog('ok', '✓ Perfil alterado: Usuário Básico');
+        } else {
+          _addDemoLog('ok', '[OK] Perfil alterado: modo Desenvolvedor ativo');
+        }
       }
+    }
+
+    function setDemoPreset(preset) {
+      const config = DEMO_PRESETS[preset];
+      if (!config || _demoRunning) return;
+      _demoPreset = preset;
+
+      document.querySelectorAll('.demo-preset').forEach(function(button) {
+        button.classList.toggle('active', button.getAttribute('data-preset') === preset);
+      });
+
+      document.getElementById('demoPlatform').value = config.platform;
+      applyDemoProfile(config.profile, true);
+      _setDemoDiagnostics(config);
+      _setDemoRealtime(config, true);
+      _resetDemoProgress('Pronto para simular o preset selecionado.');
+      _updateDemoSummary();
+      _setInitialDemoLog('Ready to simulate: ' + config.title + '.');
     }
 
     /* MUDANÇA 4 — intercepta troca de perfil no select */
@@ -1854,12 +2098,13 @@
 
     /* Troca de plataforma — gera log filtrado por perfil */
     function handleDemoPlatformChange(value) {
-      const labels = { nes:'NES', snes:'SNES', sms:'Sega Master System', gb:'Game Boy', gba:'Game Boy Advance' };
-      const name = labels[value] || value;
+      const meta = DEMO_PLATFORMS[value] || { short: value, full: value };
+      const name = meta.short;
+      _updateDemoSummary();
       if (_demoProfile === 'basic') {
         _addDemoLog('ok', '✓ Plataforma selecionada: ' + name);
       } else {
-        _addDemoLog('info', '[OK] Plataforma selecionada: Nintendo (' + name + ')');
+        _addDemoLog('info', '[OK] Plataforma selecionada: ' + meta.full);
         _addDemoLog('info', '[CFG] Encoder carregado para ' + name);
       }
     }
@@ -1902,26 +2147,23 @@
       const btn = document.getElementById('btnIniciar');
       btn.disabled = true;
 
-      const sel  = document.getElementById('demoPlatform');
-      const plat = sel.options[sel.selectedIndex].text.split(' (')[0];
+      const config = DEMO_PRESETS[_demoPreset];
+      const platformInfo = _getSelectedPlatformInfo();
+      const plat = platformInfo.short;
+      const outputName = config.outputBase + '.' + platformInfo.ext;
 
       /* Reseta */
       document.getElementById('demoLog').innerHTML = '';
-      _setSeg('psExtract',   'wait');
-      _setSeg('psTranslate', 'wait');
-      _setSeg('psReinsert',  'wait');
-      document.getElementById('psExtract').textContent = 'EXTRAÇÃO'; document.getElementById('psTranslate').textContent = 'TRADUÇÃO'; document.getElementById('psReinsert').textContent = 'REINSERÇÃO';
-      document.getElementById('progStatusText').textContent = 'Iniciando...';
+      _resetDemoProgress('Iniciando...');
 
       /* --- Fase 1: Extração --- */
       setTimeout(function() {
         _setSeg('psExtract', 'active');
-        document.getElementById('psExtract').textContent = 'EXTRAÇÃO'; document.getElementById('psTranslate').textContent = 'TRADUÇÃO'; document.getElementById('psReinsert').textContent = 'REINSERÇÃO';
         document.getElementById('progStatusText').textContent = 'Extraindo textos da ROM...';
         _addDemoLog('ok',   '[OK] ROM carregada — ' + plat);
-        _addDemoLog('info', '[CFG] Modo extração: padrão');
+        _addDemoLog('info', '[CFG] Modo extração: ' + config.mode);
         _addDemoLog('info', '[UI] Iniciando pipeline...');
-        _addDemoLog('ok',   '[OK] 1.432 strings encontradas');
+        _addDemoLog('ok',   '[OK] ' + config.found + ' strings encontradas');
       }, 300);
 
       /* --- Fase 2: Tradução --- */
@@ -1929,18 +2171,14 @@
         _setSeg('psExtract',   'done');
         _setSeg('psTranslate', 'active');
         document.getElementById('psTranslate').textContent = 'TRADUÇÃO 33%';
-        document.getElementById('progStatusText').textContent = 'Traduzindo com Gemini...';
-        _addDemoLog('info', '[LANG] Idioma origem: japonês');
-        _addDemoLog('ok',   '[OK] Traduzindo com Gemini Pro...');
-        _addDemoLog('ok',   '[OK] PRESS START → PRESSIONE START');
-        _addDemoLog('ok',   '[OK] GAME OVER → FIM DE JOGO');
+        document.getElementById('progStatusText').textContent = 'Traduzindo com ' + config.translator + '...';
+        _addDemoLog('info', '[LANG] Idioma origem: ' + config.sourceLang);
+        _addDemoLog('ok',   '[OK] Traduzindo com ' + config.translator + '...');
+        _addDemoLog('ok',   '[OK] ' + config.original + ' → ' + config.translation);
+        _addDemoLog('ok',   '[OK] ' + config.secondaryOriginal + ' → ' + config.secondaryTranslation);
         _addDemoLog('info', '[UI] Progresso: 48%');
         /* Atualiza painel em tempo real (visível no modo básico) */
-        document.getElementById('rtOriginal').textContent    = 'PRESS START';
-        document.getElementById('rtTranslation').textContent = 'PRESSIONE START';
-        document.getElementById('rtTranslator').textContent  = 'Gemini Pro';
-        document.getElementById('rtEngine').textContent      = 'Gemini';
-        document.getElementById('rtModel').textContent       = 'gemini-1.5-pro';
+        _setDemoRealtime(config, false);
       }, 2100);
 
       /* --- Fase 3: Reinserção --- */
@@ -1949,9 +2187,10 @@
         _setSeg('psReinsert',  'active');
         document.getElementById('psReinsert').textContent = 'REINSERÇÃO 67%';
         document.getElementById('progStatusText').textContent = 'Reinserindo na ROM...';
-        _addDemoLog('ok',   '[OK] Reinserindo 1.432 strings...');
+        _addDemoLog('ok',   '[OK] Reinserindo ' + config.found + ' strings...');
         _addDemoLog('info', '[CFG] Checksum recalculado');
-        _addDemoLog('ok',   '[OK] ROM gerada: rom_traduzida.nes');
+        _addDemoLog('info', '[CFG] Pacote final: ' + config.mode);
+        _addDemoLog('ok',   '[OK] ROM gerada: ' + outputName);
       }, 4200);
 
       /* --- Concluído --- */
@@ -1975,12 +2214,7 @@
       document.getElementById('devButtons').style.display      = 'none';
       document.getElementById('realtimePanel').style.display   = 'flex';
       document.getElementById('demoOverlay').style.display     = 'none';
-      /* Log inicial */
-      var log  = document.getElementById('demoLog');
-      var line = document.createElement('span');
-      line.className   = 'log-line log-info';
-      line.textContent = 'Sistema iniciado. Aguardando ROM...';
-      log.appendChild(line);
+      setDemoPreset('arcade');
     })();
   </script>
 
